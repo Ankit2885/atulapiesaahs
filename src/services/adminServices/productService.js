@@ -1,5 +1,6 @@
 const knex = require("../../db/migrations/config/knex")
 
+// working here
 const saveproductServicedata = async (serdetail) => {
     try{
         const insertData = {
@@ -20,6 +21,38 @@ const saveproductServicedata = async (serdetail) => {
         throw Promise.reject(err)
     }
 }
+
+const getProductDetailsById = async (productId, subscriptionId) => {
+    try{
+
+        if(subscriptionId)
+            return await knex('product_service').select('*').where({ subscription_id: subscriptionId})
+        
+        return await knex('product_service').select('*').where({ product_id: productId})
+    }
+    catch(err){
+        throw Promise.reject(err)
+    }
+}
+
+const updateProductDetailsService = async (productDetails, productId) => {
+    try{
+        const insertData = {
+            Nic_code:productDetails.niccode,
+            Main_Activity:productDetails.mainactivity,
+           Activity_group:productDetails.Activity_group,
+           Business_code:productDetails.Business_code,
+           Turn_Over:productDetails.TurnOver,
+           subscription_id:productDetails.subscriptionId
+        }
+        return await knex('product_service').update(insertData).where({ product_id: productId})
+    }
+    catch(err){
+        throw Promise.reject(err)
+    }
+}
 module.exports = {
-    saveproductServicedata
+    saveproductServicedata,
+    getProductDetailsById,
+    updateProductDetailsService
 }

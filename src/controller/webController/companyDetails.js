@@ -22,7 +22,7 @@ const getCompanyDetails = async (req, res) => {
         const companyId = req?.query?.companyId
 
         if( !(subscriptionId || companyId) )
-            return res.status(409).send({ messege: `company id or subscription is is mandatory`}).end()
+            return res.status(409).send({ messege: `company id or subscription is mandatory`}).end()
 
         const response = await getCompanyDetailsById(companyId, subscriptionId)
         return res.status(201).send({ data: response }).end()
