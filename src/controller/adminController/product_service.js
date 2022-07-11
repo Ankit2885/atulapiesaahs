@@ -2,7 +2,13 @@ const { saveproductServicedata, getProductDetailsById, updateProductDetailsServi
 
 const saveproductdata = async (req, res) => {
     try{
-        await saveproductServicedata(req.body);
+        const subscriptionId = req?.user?.subscriptionId
+
+        const productDetails = await getProductDetailsById(undefined, subscriptionId)
+        if(productDetails.length){
+            return res.status(409).send({messege: `company details already added`})
+        }
+        await saveproductServicedata(req.body, subscriptionId);
         return res.status(201).send({messege: `added product succesfully`}).end()
     }
     catch(err){
@@ -15,7 +21,7 @@ const getProductdata = async (req, res) => {
         const subscriptionId = req?.body?.subscriptionId
         const productId = req?.query?.productId
 
-        if(!(subscriptionId || productId ))
+        if( !(subscriptionId || productId ))
             return res.status(409).send({ messege: `product id or subscription is mandatory`}).end()
 
         const response = await getProductDetailsById(productId, subscriptionId)
@@ -27,7 +33,7 @@ const getProductdata = async (req, res) => {
 }
 const updateProductdata = async (req, res) => {
     try{
-        const productId = req?.query?.productId
+        const productId = req?.body?.productId
         if(!productId)
             return res.status(409).send({ messege: `product id property is mandatory in body`})
 
