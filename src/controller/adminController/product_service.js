@@ -18,7 +18,7 @@ const saveproductdata = async (req, res) => {
 // working complete 
 const getProductdata = async (req, res) => {
     try{
-        const subscriptionId = req?.body?.subscriptionId
+        const subscriptionId = req?.user?.subscriptionId
         const productId = req?.query?.productId
 
         if( !(subscriptionId || productId ))
