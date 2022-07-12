@@ -15,7 +15,7 @@ app.use(httpLogger)
 app.use('/company', webCompanyRoutes)
 app.use('/user', webUserRoutes)
 app.use('/admin', adminCompanyRoutes)
-app.use('/prodService', productService);
+app.use('/prodService', productService)
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

@@ -38,7 +38,7 @@ const updateProductdata = async (req, res) => {
             return res.status(409).send({ messege: `product id property is mandatory in body`})
 
         await updateProductDetailsService(req.body, productId)
-        return res.status(204).send({messege: `product details updated succesfully`}).end()
+        return res.status(201).send({messege: `product details updated succesfully`}).end()
     }
     catch(err){
         return res.status(500).send('Internal Server Error').end()
